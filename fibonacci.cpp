@@ -5,40 +5,33 @@
 #include <vector>
 
 /**
- * Class contains functions to operate
+ * Functions to operate
  * on fibonacci sequence.
  */
 class Fibonacci {
     /**
-     * Calculating n-th fibonacci number.
-     *
-     * @param n
-     * @return last_digit
+     * Calculating n-th fibonacci number.  *
+     * @param n.
+     * @return n-th fibonacci number.
      */
    public:
     static int get(int n) {
         assert(n >= 0);
 
-        if (n == 0) {
-            return 0;
+        if ((n == 0) | (n == 1)) {
+            return n;
         }
 
-        if (n == 1) {
-            return 1;
-        }
-
-        std::vector<int> v = {};
-        v.push_back(0);
-        v.push_back(1);
+        int previous = 0;
+        int current = 1;
 
         for (int i = 2; i <= n; i++) {
-            int next_fib = v.at(i - 2) + v.at(i - 1);
-            v.push_back(next_fib);
+            int new_current = previous + current;
+            previous = current;
+            current = new_current;
         }
 
-        int fib_number = v.back();
-
-        return fib_number;
+        return current;
     }
 
     /**
@@ -47,7 +40,7 @@ class Fibonacci {
      * Counting fibonacci numbers with modulus 10.
      *
      * @param n N-th fibonacci number to get digit.
-     * @return last_digit
+     * @return Last digit.
      */
    public:
     static int get_last_digit(int n) {
@@ -78,7 +71,7 @@ class Fibonacci {
      * numbers taken modulo m repeats.
      *
      * @param m.
-     * @return period if exists and 0 if otherwise.
+     * @return Period if exists and 0 if otherwise.
      */
    private:
     static int get_pisano_period(int m) {
@@ -110,7 +103,7 @@ class Fibonacci {
      * Counting fibonacci number with modulus m.
      *
      * @param n N-th fibonacci number.
-     * @return remainder.
+     * @return Remainder.
      */
    public:
     static int get_remainder(long long n, int m) {
@@ -119,21 +112,21 @@ class Fibonacci {
 
         int pisano_period = get_pisano_period(m);
 
-        // In case we don't find pisano period,
+        // in case we don't find pisano period,
         // we are not able to reduce calculations
         // by finding number of element with
         // same remainder.
         int num_of_element_with_same_remainder = n;
 
-        // If pisano period exists, we find smallest
+        // if pisano period exists, we find smallest
         // number of element with same remainderl
         if (pisano_period != 0) {
             num_of_element_with_same_remainder = n % pisano_period;
         }
 
-        // Assigning remainder value of element number
+        // assigning remainder value of element number
         // because it will always be recalculated except
-        // we get 0 or 1. In this cases remainders are
+        // we get 0 or 1. in this cases remainders are
         // same: 0th fibonacci element (0) always have
         // remainder of 0 and 1st element (1) always have
         // remainder of 1.
@@ -155,13 +148,9 @@ class Fibonacci {
         return remainder;
     }
 };
-
 int main(void) {
-    long long n;
-    int m;
-
-    std::cin >> n >> m;
-    std::cout << Fibonacci::get_remainder(n, m) << std::endl;
-
+    int n;
+    std::cin >> n;
+    std::cout << Fibonacci::get(n) << std::endl;
     return 0;
 }
