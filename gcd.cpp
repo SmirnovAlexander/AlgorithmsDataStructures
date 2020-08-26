@@ -11,21 +11,13 @@ template <class Int>
  *
  */
 Int gcd(Int a, Int b) {
-    assert(a >= 0 && b >= 0);
+    assert(a > 0);
 
-    if (a == 0)
-        return b;
-
-    else if (b == 0)
-        return a;
-
-    else if (a > b) {
-        return gcd(a % b, b);
+    if (b > 0) {
+        return gcd(b, a % b);
     }
 
-    else {
-        return gcd(a, b % a);
-    }
+    return a;
 }
 
 int main(void) {
