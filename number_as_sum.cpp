@@ -1,5 +1,5 @@
-#include <iostream>
 #include <cassert>
+#include <iostream>
 #include <vector>
 
 /**
@@ -13,10 +13,30 @@
 std::vector<int> number_as_sum(int n) {
     assert(n > 0);
 
+    int i = 1;
+    int sum = 0;
     std::vector<int> result;
 
-    result.push_back(n);
-    result.push_back(n);
+    // We accumulate values in sum
+    // variable. We start from 1 and
+    // keep adding numbers until
+    // sum + next_number will be over
+    // target value n. When we face this
+    // we should remove last value in vector
+    // and add n - sum of elements in vector
+    // to complement sum to n.
+    while (sum != n) {
+        if (sum + i > n) {
+            result.pop_back();
+            result.push_back(n - (sum - (i - 1)));
+            sum = n;
+        } else {
+            sum += i;
+            result.push_back(i);
+        }
+
+        i++;
+    }
 
     return result;
 }
